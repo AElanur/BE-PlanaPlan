@@ -14,7 +14,7 @@ class PlannerAuthController {
     lateinit var plannerInfoService: PlannerAuthService
 
     @PostMapping("/login")
-    fun loginPlanner(@RequestBody plannerAuth: PlannerAuth): Boolean {
+    fun loginPlanner(@RequestBody plannerAuth: PlannerAuth): String? {
         print(plannerAuth)
         return plannerInfoService.loginPlanner(plannerAuth)
     }
