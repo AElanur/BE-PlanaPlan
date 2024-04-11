@@ -12,18 +12,17 @@ import java.util.*
 @Service
 class PlannerAuthService(@Autowired private val plannerService: PlannerAuthRepository) {
     fun loginPlanner(planner: PlannerAuth): String? {
-        val userExists = plannerService.exists(Example.of(planner))
-        return if (userExists) {
+            val userExists = plannerService.exists(Example.of(planner))
+            if (!userExists) {
+                return null
+            }
             val algorithm = Algorithm.HMAC256("secret")
             val token = JWT.create()
                 .withIssuer("PlanaPlan_Backend")
                 .withClaim("username", planner.username)
-                .withExpiresAt(Date(System.currentTimeMillis() + 24*60*60*1000)) // 1 day
+                .withExpiresAt(Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000)) // 1 day
                 .sign(algorithm)
-            token
-        } else {
-            null
-        }
+            return token
     }
 
     fun getPlannerInfo(id: Int): Boolean {
