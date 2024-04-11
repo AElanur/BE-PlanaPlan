@@ -11,4 +11,8 @@ class PlannerAuthService(@Autowired private val plannerService: PlannerAuthRepos
     fun loginPlanner(planner: PlannerAuth): Boolean {
         return plannerService.exists(Example.of(planner))
     }
+
+    fun getPlannerInfo(id: Int): Boolean {
+        return plannerService.existsById(id.toString())
+    }
 }

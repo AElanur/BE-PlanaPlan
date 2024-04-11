@@ -31,6 +31,7 @@ dependencies {
     implementation("javax.persistence:javax.persistence-api:2.2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
+    implementation("io.ktor:ktor-client-auth-jvm:2.3.7")
 }
 
 tasks.withType<KotlinCompile> {

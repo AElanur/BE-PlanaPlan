@@ -18,4 +18,9 @@ class PlannerAuthController {
         print(plannerAuth)
         return plannerInfoService.loginPlanner(plannerAuth)
     }
+
+    @GetMapping("/login/{id}")
+    fun getUser(@PathVariable id: Int): Boolean? {
+        return plannerInfoService.getPlannerInfo(id)
+    }
 }
