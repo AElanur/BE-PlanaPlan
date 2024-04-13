@@ -10,6 +10,7 @@ import project.planaplan_backend.repository.PlannerInfoRepository
 class PlannerInfoService(@Autowired private val plannerInfoRepository: PlannerInfoRepository)  {
 
     fun getPlannerInfo(id: Int): PlannerInfo? {
+        // find planner by token
         return plannerInfoRepository.findById(id.toString()).orElse(null)
     }
 }

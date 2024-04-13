@@ -14,9 +14,14 @@ class PlannerAuthController {
     lateinit var plannerInfoService: PlannerAuthService
 
     @PostMapping("/login")
-    fun loginPlanner(@RequestBody plannerAuth: PlannerAuth): String? {
-        print(plannerAuth)
+    fun loginPlanner(@RequestBody plannerAuth: PlannerAuth): Map<String, String>? {
         return plannerInfoService.loginPlanner(plannerAuth)
+    }
+
+    @PostMapping("/login/verify-token")
+    fun verifyToken(@RequestHeader("Authorization") authHeader: String): Boolean {
+        val token = authHeader.removePrefix("Bearer ").trim()
+        return plannerInfoService.verifyToken(token)
     }
 
     @GetMapping("/login/{id}")

@@ -11,21 +11,33 @@ import java.util.*
 
 @Service
 class PlannerAuthService(@Autowired private val plannerService: PlannerAuthRepository) {
-    fun loginPlanner(planner: PlannerAuth): String? {
-            val userExists = plannerService.exists(Example.of(planner))
-            if (!userExists) {
-                return null
-            }
-            val algorithm = Algorithm.HMAC256("secret")
+    fun loginPlanner(planner: PlannerAuth): Map<String, String>? {
+        val user = plannerService.findByUsernameAndPassword(planner.username, planner.password) ?: return null
+        val algorithm = Algorithm.HMAC256("secret")
             val token = JWT.create()
                 .withIssuer("PlanaPlan_Backend")
-                .withClaim("username", planner.username)
+                .withClaim("id", user.id)
                 .withExpiresAt(Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000)) // 1 day
                 .sign(algorithm)
-            return token
+
+            return mapOf("token" to token, "id" to user.id)
     }
 
     fun getPlannerInfo(id: Int): Boolean {
         return plannerService.existsById(id.toString())
+    }
+
+    fun verifyToken(token: String): Boolean {
+        return try {
+            val algorithm = Algorithm.HMAC256("secret")
+            val verifier = JWT.require(algorithm)
+                .withIssuer("PlanaPlan_Backend")
+                .build()
+            verifier.verify(token)
+            true
+        } catch (exception: Exception) {
+            println("Error verifying token: ${exception.message}")
+            false
+        }
     }
 }
