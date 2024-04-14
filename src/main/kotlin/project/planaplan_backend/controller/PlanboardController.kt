@@ -15,11 +15,16 @@ class PlanboardController {
 
     @GetMapping("/{id}")
     fun getPlanboard(@PathVariable id: Int): Planboard? {
-            return planboardService.getPlanboard(id)
+        return planboardService.getPlanboard(id)
     }
 
     @GetMapping("/all/{id}")
     fun getPlanboards(@PathVariable id: List<String>): List<Planboard> {
         return planboardService.getPlanboards(id)
+    }
+
+    @PostMapping("/")
+    fun postPlanboard(@RequestBody planboard: Planboard) {
+        planboardService.createNewPlanboard(planboard)
     }
 }

@@ -22,4 +22,8 @@ class PlanboardService (@Autowired private val planboardRepository: PlanboardRep
         }
         return planboards
     }
+
+    fun createNewPlanboard(planboard: Planboard) {
+        planboardRepository.save(planboard)
+    }
 }
