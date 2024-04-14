@@ -1,9 +1,9 @@
 package project.planaplan_backend.dataModels
 
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import javax.persistence.*
 
+@Entity
+@Table(name = "planboard")
 data class Planboard(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
