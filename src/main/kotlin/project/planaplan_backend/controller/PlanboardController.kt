@@ -18,4 +18,8 @@ class PlanboardController {
             return planboardService.getPlanboard(id)
     }
 
+    @GetMapping("/all/{id}")
+    fun getPlanboards(@PathVariable id: List<String>): List<Planboard> {
+        return planboardService.getPlanboards(id)
+    }
 }

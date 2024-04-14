@@ -8,9 +8,10 @@ import project.planaplan_backend.repository.PlanboardRepository
 @Service
 class PlanboardService (@Autowired private val planboardRepository: PlanboardRepository) {
     fun getPlanboard(id: Int): Planboard? {
-        return planboardRepository.findById(
-            id.toString
-                ()
-        ).orElse(null)
+        return planboardRepository.findById(id.toString()).orElse(null)
+    }
+
+    fun getPlanboards(ids: List<String>): List<Planboard> {
+        return planboardRepository.findAllById(ids)
     }
 }

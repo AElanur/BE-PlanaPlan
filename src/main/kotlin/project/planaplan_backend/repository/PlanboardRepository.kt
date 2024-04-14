@@ -7,4 +7,6 @@ import javax.transaction.Transactional
 
 @Repository
 @Transactional(Transactional.TxType.REQUIRED)
-interface PlanboardRepository : JpaRepository<Planboard, String>
+interface PlanboardRepository : JpaRepository<Planboard, String> {
+    override fun findAllById(ids: Iterable<String>): List<Planboard>
+}
