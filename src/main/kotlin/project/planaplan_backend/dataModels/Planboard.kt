@@ -8,6 +8,6 @@ data class Planboard(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id              : String = "",
-    val pb_title        : String,
-    val planner_info_id : Int
+    val pb_title        : String = "",
+    val planner_info_id : String = ""
 )
