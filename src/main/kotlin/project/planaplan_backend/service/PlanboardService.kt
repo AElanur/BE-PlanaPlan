@@ -12,6 +12,14 @@ class PlanboardService (@Autowired private val planboardRepository: PlanboardRep
     }
 
     fun getPlanboards(ids: List<String>): List<Planboard> {
-        return planboardRepository.findAllById(ids)
+        val resultArray = planboardRepository.findByPlannerInfoIdIn(ids)
+        val planboards = mutableListOf<Planboard>()
+        for (i in resultArray) {
+            val id = i[0] as String
+            val pb_title = i[1] as String
+            val planboard = Planboard(id = id, pb_title = pb_title)
+            planboards.add(planboard)
+        }
+        return planboards
     }
 }
